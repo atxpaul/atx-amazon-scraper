@@ -19,6 +19,9 @@ const input=cli.input;
 const flags=cli.flags;
 const {clear,debug,minimal}=flags;
 
+
+//TODO: Es necesario el market?
+
 (async()=>{
     init({clear,minimal});
     input.includes('help') && cli.showHelp(0);
