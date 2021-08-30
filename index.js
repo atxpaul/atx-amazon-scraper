@@ -31,7 +31,9 @@ const {clear,debug,minimal}=flags;
     }   else if (input[0].includes(`amazon.com`)){
             await(scrap(input[0],`COM`));
     }   else {
-        console.log(`Cannot scrap URL, check it. Only available on amazon ES and COM`);
+        //Testing si funciona con URL de amazon de otros países.
+        await(scrap(input[0],`COM`));
+        //console.log(`Cannot scrap URL, check it. Only available on amazon ES and COM`);
     }
     
 

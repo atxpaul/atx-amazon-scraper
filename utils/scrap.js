@@ -1,6 +1,8 @@
 const scrapeIt = require("scrape-it");
 const ora=require('ora');
 
+const storer=require('./storer');
+
 const spinner=ora({text:''})
 
 
@@ -20,19 +22,6 @@ module.exports=async(url,market)=>{
     titleIdTag="#productTitle";
     priceIdTag="#price_inside_buybox";
     availabilityIdTag="#availabilityInsideBuyBox_feature_div #availability span";
-
-
-
-    // if (market==='ES'){
-
-    //     priceIdTag="#newBuyBoxPrice";
-    //     availabilityIdTag="#availabilityInsideBuyBox_feature_div #availability span";
-    // } else if (market === 'COM'){
-
-    //     priceIdTag="#price_inside_buybox";
-    //     availabilityIdTag="#availability span";
-    // }
-    //console.log(`Going to scrap on amazon ${market}`);
 
 
     //Scraping all for title
@@ -95,7 +84,14 @@ module.exports=async(url,market)=>{
     if (title!=''){
         spinner.succeed(`Done`)
         spinner.stop();
-        
+        const now=Date.now();
+        const articleStatus={
+            title:title,
+            price:price,
+            availability:availability,
+            date:now,
+        }
+        storer(articleStatus);
         console.log(`Title: ${title}`);
         console.log(`Price: ${price}`)
         console.log(`Availability: ${availability}`)
