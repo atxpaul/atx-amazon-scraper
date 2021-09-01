@@ -85,12 +85,13 @@ module.exports=async(url,market)=>{
     if (title!=''){
         spinner.succeed(`Done`)
         spinner.stop();
-        const now=Date.now();
+        const event = new Date();
+        const jsonDate = event.toJSON();
         const articleStatus={
             title:title,
             price:price,
             availability:availability,
-            date:now,
+            date:jsonDate,
         }
         storer(articleStatus);
         console.log(`Title: ${title}`);

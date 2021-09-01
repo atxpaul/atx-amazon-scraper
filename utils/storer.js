@@ -20,10 +20,16 @@ module.exports=async(article)=>{
 
     const adapter = new FileSync(dbArticles);
     const db=low(adapter);
-    db.defaults({articles:[]}).write();
 
+    if(db.get(`articles`).find({title:article.title}).value()){
+        //console.log(`Found Article: ${article.title}`);
+        db.get(`articles`).find({title:article.title}).assign({date:article.date,price:article.price,availability:article.availability}).write();
+    }
+    else {
+        //console.log(`Article not found on DB, writing`);
+        db.defaults({articles:[]}).write();
+        db.get(`articles`).push(article).write();
+    }
 
-
-    db.get(`articles`).push(article).write();
 
 }
