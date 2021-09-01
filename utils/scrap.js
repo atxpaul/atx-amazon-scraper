@@ -38,10 +38,11 @@ module.exports=async(url,market)=>{
 
     //if not title, exit    
     if (title===''){
-        spinner.fail(`Could not fetch any item. Are you using an amazon URL?`);
-        console.log(`Title: `)
-        console.log(`Price: `)
-        console.log(`Availability: `);
+        spinner.fail(`Fail`);
+        console.log(`Could not fetch any item. Are you using an amazon URL?`);
+        // console.log(`Title: `)
+        // console.log(`Price: `)
+        // console.log(`Availability: `);
         process.exit(0);
     }
 

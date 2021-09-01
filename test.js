@@ -15,16 +15,6 @@ Price:
 Availability: `)
 })
 
-//Checking amazon ES no data
-test(`amazon ES no data`,async t =>{
-  const {stdout} = await execa(`./index.js`,
-  [`https://www.amazon.es/gp/product/AAAAB08C7KG5LP`,...minimal],
-  )
-  t.is(stdout,`Title: 
-Price: 
-Availability: `)
-})
-
 
 //Checking amazon COM
 test(`amazon COM`,async t =>{
@@ -36,18 +26,27 @@ Price:
 Availability: `)
 })
 
+
+//Checking amazon ES no data
+test(`amazon ES no data`,async t =>{
+  const {stdout} = await execa(`./index.js`,
+  [`https://www.amazon.es/gp/product/AAAAB08C7KG5LP`,...minimal],
+  )
+  t.is(stdout,`Could not fetch any item. Are you using an amazon URL?`)
+})
+
+
 //Checking amazon COM no data
 test(`amazon COM no data`,async t =>{
   const {stdout} = await execa(`./index.js`,[
     `https://www.amazon.com/dp/AAAAAB01H6GUCCQ/`,...minimal],
     )
-  t.is(stdout,`Title: 
-Price: 
-Availability: `)
+    t.is(stdout,`Could not fetch any item. Are you using an amazon URL?`)
 })
+
 
 //Checking bad URL:
 test(`Bad URL`,async t =>{
   const {stdout} = await execa(`./index.js`,[`https://google.com/`,...minimal])
-  t.is(stdout,`Cannot scrap URL, check it. Only available on amazon ES and COM`)
+  t.is(stdout,`Could not fetch any item. Are you using an amazon URL?`)
 })
