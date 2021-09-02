@@ -12,6 +12,7 @@ const init = require('./utils/init');
 const cli = require('./utils/cli');
 const log = require('./utils/log');
 const scrap = require('./utils/scrap');
+const storer = require('./utils/storer');
 
 
 
@@ -26,6 +27,21 @@ const {clear,debug,minimal}=flags;
     init({clear,minimal});
     input.includes('help') && cli.showHelp(0);
     //console.log(input, input[0].includes(`amazon.es`));
+
+    //COMMAND: todo view or todo ls
+    if (input.includes(`view`)||input.includes(`ls`)){
+        const allUrl= await storer.findAll();
+        if (allUrl.length>0){
+            for(i=0;i<allUrl.length;i++){
+                await(scrap(allUrl[i],`COM`));
+            }
+        }
+        else {
+            console.log(`You cannot view any articles if you don't search for any of them before`)
+        }        
+        process.exit(0);
+    }
+
     if (input[0].includes(`amazon.es`)){
             await(scrap(input[0],`ES`));
     }   else if (input[0].includes(`amazon.com`)){

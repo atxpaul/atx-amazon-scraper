@@ -92,8 +92,9 @@ module.exports=async(url,market)=>{
             price:price,
             availability:availability,
             date:jsonDate,
+            url:url
         }
-        storer(articleStatus);
+        storer.insertOrUpdate(articleStatus);
         console.log(`Title: ${title}`);
         console.log(`Price: ${price}`)
         console.log(`Availability: ${availability}`)

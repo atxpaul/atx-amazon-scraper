@@ -50,3 +50,6 @@ test(`Bad URL`,async t =>{
   const {stdout} = await execa(`./index.js`,[`https://google.com/`,...minimal])
   t.is(stdout,`Could not fetch any item. Are you using an amazon URL?`)
 })
+
+
+//TODO: Testing persistence

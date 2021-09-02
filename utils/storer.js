@@ -10,7 +10,7 @@ const dbArticles = path.join(process.cwd(),`.articles/articles.json`);
 
 
 
-module.exports=async(article)=>{
+exports.insertOrUpdate = async(article)=>{
 
     if(!fs.existsSync(dbArticles)){
         await makeDir(`.articles`);
@@ -32,4 +32,11 @@ module.exports=async(article)=>{
     }
 
 
+}
+
+exports.findAll = async()=>{
+    const adapter = new FileSync(dbArticles);
+    const db=low(adapter);
+    const urls= db.get(`articles`).map(`url`).value();
+    return urls;
 }
