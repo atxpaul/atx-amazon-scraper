@@ -3,6 +3,7 @@ const ora=require('ora');
 
 const storer=require('./storer');
 const domain=require('./domain');
+const priceTransformer=require('./priceTransformer');
 
 const spinner=ora({text:''})
 
@@ -86,12 +87,15 @@ module.exports=async(url,market)=>{
     if (title!=''){
         spinner.succeed(`Done`)
         spinner.stop();
+        const priceFloat=await priceTransformer.extractMoney(price);
+        const currency=await priceTransformer.extractCurrency(price);
         const urlDomain=await domain.extractDomain(url);
         const event = new Date();
         const jsonDate = event.toJSON();
         const articleStatus={
             title:title,
-            price:price,
+            price:priceFloat,
+            currency:currency,
             availability:availability,
             date:jsonDate,
             domain:urlDomain,
