@@ -2,6 +2,7 @@ const scrapeIt = require("scrape-it");
 const ora=require('ora');
 
 const storer=require('./storer');
+const domain=require('./domain');
 
 const spinner=ora({text:''})
 
@@ -85,6 +86,7 @@ module.exports=async(url,market)=>{
     if (title!=''){
         spinner.succeed(`Done`)
         spinner.stop();
+        const urlDomain=await domain.extractDomain(url);
         const event = new Date();
         const jsonDate = event.toJSON();
         const articleStatus={
@@ -92,6 +94,7 @@ module.exports=async(url,market)=>{
             price:price,
             availability:availability,
             date:jsonDate,
+            domain:urlDomain,
             url:url
         }
         storer.insertOrUpdate(articleStatus);
