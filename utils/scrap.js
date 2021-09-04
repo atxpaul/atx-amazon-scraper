@@ -8,7 +8,7 @@ const priceTransformer=require('./priceTransformer');
 const spinner=ora({text:''})
 
 
-module.exports=async(url,market)=>{
+module.exports=async(url)=>{
     let titleIdTag;
     let priceIdTag;
     let availabilityIdTag;
@@ -42,9 +42,6 @@ module.exports=async(url,market)=>{
     if (title===''){
         spinner.fail(`Fail`);
         console.log(`Could not fetch any item. Are you using an amazon URL?`);
-        // console.log(`Title: `)
-        // console.log(`Price: `)
-        // console.log(`Availability: `);
         process.exit(0);
     }
 

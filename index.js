@@ -20,9 +20,7 @@ const input=cli.input;
 const flags=cli.flags;
 const {clear,debug,minimal}=flags;
 
-
-//TODO: Es necesario el market?
-
+//IIFE
 (async()=>{
     init({clear,minimal});
     input.includes('help') && cli.showHelp(0);
@@ -42,15 +40,8 @@ const {clear,debug,minimal}=flags;
         process.exit(0);
     }
 
-    if (input[0].includes(`amazon.es`)){
-            await(scrap(input[0],`ES`));
-    }   else if (input[0].includes(`amazon.com`)){
-            await(scrap(input[0],`COM`));
-    }   else {
-        //Testing si funciona con URL de amazon de otros países.
-        await(scrap(input[0],`COM`));
-        //console.log(`Cannot scrap URL, check it. Only available on amazon ES and COM`);
-    }
+    //Search for URL
+    await(scrap(input[0]));
     
 
     debug && log (flags, input);
