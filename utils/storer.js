@@ -18,7 +18,6 @@ exports.insertOrUpdate = async (article) => {
   const db = low(adapter);
 
   if (db.get(`articles`).find({ title: article.title }).value()) {
-    //console.log(`Found Article: ${article.title}`);
     db.get(`articles`)
       .find({ title: article.title })
       .assign({
@@ -27,6 +26,22 @@ exports.insertOrUpdate = async (article) => {
         availability: article.availability,
       })
       .write();
+    const articleStored = db
+      .get(`articles`)
+      .find({ title: article.title })
+      .value();
+    if (article.price < articleStored.minPrice.minPrice) {
+      db.get(`articles`)
+        .find({ title: article.title })
+        .assign({
+          minPrice: {
+            minPriceDate: article.date,
+            minPrice: article.price,
+            minPriceCurrency: article.currency,
+          },
+        })
+        .write();
+    }
   } else {
     //console.log(`Article not found on DB, writing`);
     db.defaults({ articles: [] }).write();
