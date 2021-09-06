@@ -12,6 +12,8 @@ module.exports = async (url) => {
   let title;
   let price;
   let availability;
+  let priceFloat;
+  let currency;
 
   spinner.start(`Scraping`);
 
@@ -51,11 +53,14 @@ module.exports = async (url) => {
     spinner.succeed(`Done`);
     spinner.stop();
     if (price != '') {
-      const priceFloat = await priceTransformer.extractMoney(price);
-      const currency = await priceTransformer.extractCurrency(price);
+      priceFloat = await priceTransformer.extractMoney(price);
+      currency = await priceTransformer.extractCurrency(price);
     } else {
       priceFloat = 99999.0;
       currency = '';
+    }
+    if (availability.indexOf(`\n`) > 1) {
+      availability = availability.substr(0, availability.indexOf(`\n`));
     }
     const urlDomain = await domain.extractDomain(url);
     const event = new Date();
