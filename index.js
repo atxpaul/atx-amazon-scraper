@@ -24,8 +24,8 @@ const { clear, debug, minimal } = flags;
   input.includes('help') && cli.showHelp(0);
   //console.log(input, input[0].includes(`amazon.es`));
 
-  //COMMAND: todo view or todo ls
-  if (input.includes(`view`) || input.includes(`ls`)) {
+  //COMMAND: check -> Scrap all items, just scrap and show, not notice if any changes
+  if (input.includes(`check`) || input.includes(`ls`)) {
     const allUrl = await storer.findAll();
     if (allUrl.length > 0) {
       for (i = 0; i < allUrl.length; i++) {
@@ -33,7 +33,7 @@ const { clear, debug, minimal } = flags;
       }
     } else {
       console.log(
-        `You cannot view any articles if you don't search for any of them before`
+        `You cannot check any articles if you don't search for any of them before`
       );
     }
     process.exit(0);

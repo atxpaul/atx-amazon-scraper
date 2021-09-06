@@ -32,6 +32,9 @@ const commands = {
   help: {
     desc: `Print help info`,
   },
+  check: {
+    desc: `Scrap all items storaged`,
+  },
 };
 
 const helpText = meowHelp({

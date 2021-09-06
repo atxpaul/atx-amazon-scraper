@@ -50,8 +50,13 @@ module.exports = async (url) => {
   if (title != '') {
     spinner.succeed(`Done`);
     spinner.stop();
-    const priceFloat = await priceTransformer.extractMoney(price);
-    const currency = await priceTransformer.extractCurrency(price);
+    if (price != '') {
+      const priceFloat = await priceTransformer.extractMoney(price);
+      const currency = await priceTransformer.extractCurrency(price);
+    } else {
+      priceFloat = 99999.0;
+      currency = '';
+    }
     const urlDomain = await domain.extractDomain(url);
     const event = new Date();
     const jsonDate = event.toJSON();
