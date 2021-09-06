@@ -63,6 +63,11 @@ module.exports = async (url) => {
       date: jsonDate,
       domain: urlDomain,
       url: url,
+      minPrice: {
+        minPriceDate: jsonDate,
+        minPrice: priceFloat,
+        minPriceCurrency: currency,
+      },
     };
     storer.insertOrUpdate(articleStatus);
     console.log(`Title: ${title}`);
