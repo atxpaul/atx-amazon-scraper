@@ -15,7 +15,9 @@ module.exports = async (url, show = true) => {
   let priceFloat;
   let currency;
 
-  spinner.start(`Scraping`);
+  if (show) {
+    spinner.start(`Scraping`);
+  }
 
   async function scrap() {
     let pageContent;
@@ -50,8 +52,10 @@ module.exports = async (url, show = true) => {
   await scrap();
 
   if (title != '') {
-    spinner.succeed(`Done`);
-    spinner.stop();
+    if (show) {
+      spinner.succeed(`Done`);
+      spinner.stop();
+    }
     if (price != '') {
       priceFloat = await priceTransformer.extractMoney(price);
       currency = await priceTransformer.extractCurrency(price);

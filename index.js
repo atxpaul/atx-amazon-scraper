@@ -13,7 +13,9 @@ const cli = require('./utils/cli');
 const log = require('./utils/log');
 const scrap = require('./utils/scrap');
 const storer = require('./utils/storer');
+const ora = require('ora');
 
+const spinner = ora({ text: '' });
 const input = cli.input;
 const flags = cli.flags;
 const { clear, debug, minimal } = flags;
@@ -28,9 +30,13 @@ const { clear, debug, minimal } = flags;
   if (input.includes(`check`) || input.includes(`ls`)) {
     const allUrl = await storer.findAll();
     if (allUrl.length > 0) {
+      spinner.start(`Checking if there is any change`);
       for (i = 0; i < allUrl.length; i++) {
         await scrap(allUrl[i], false);
       }
+      spinner.succeed(
+        `Finished. If any article has changed price, it is shown above`
+      );
     } else {
       console.log(
         `You cannot check any articles if you don't search for any of them before`
