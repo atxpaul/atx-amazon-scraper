@@ -29,7 +29,7 @@ const { clear, debug, minimal } = flags;
     const allUrl = await storer.findAll();
     if (allUrl.length > 0) {
       for (i = 0; i < allUrl.length; i++) {
-        await scrap(allUrl[i]);
+        await scrap(allUrl[i], false);
       }
     } else {
       console.log(

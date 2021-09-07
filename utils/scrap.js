@@ -8,7 +8,7 @@ const priceTransformer = require('./priceTransformer');
 
 const spinner = ora({ text: '' });
 
-module.exports = async (url) => {
+module.exports = async (url, show = true) => {
   let title;
   let price;
   let availability;
@@ -79,10 +79,12 @@ module.exports = async (url) => {
         minPriceCurrency: currency,
       },
     };
-    storer.insertOrUpdate(articleStatus);
-    console.log(`Title: ${title}`);
-    console.log(`Price: ${price}`);
-    console.log(`Availability: ${availability}`);
+    const isLowestPrice = await storer.insertOrUpdate(articleStatus);
+    if (isLowestPrice || show) {
+      console.log(`Title: ${title}`);
+      console.log(`Price: ${price}`);
+      console.log(`Availability: ${availability}`);
+    }
   } else {
     spinner.fail(`Fail`);
     console.log(`Could not fetch any item. Are you using an amazon URL?`);

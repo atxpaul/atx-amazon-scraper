@@ -8,6 +8,7 @@ const FileSync = require('lowdb/adapters/FileSync');
 const dbArticles = path.join(process.cwd(), `.articles/articles.json`);
 
 exports.insertOrUpdate = async (article) => {
+  let noticeLowPrice = false;
   if (!fs.existsSync(dbArticles)) {
     await makeDir(`.articles`);
     process.chdir(`.articles`);
@@ -22,9 +23,9 @@ exports.insertOrUpdate = async (article) => {
       .get(`articles`)
       .find({ title: article.title })
       .value();
-    if ((article.price = 0)) {
-      price = articleStored.price;
-      currency = articleStored.currency;
+    if (article.price === 0) {
+      article.price = articleStored.price;
+      article.currency = articleStored.currency;
     }
     db.get(`articles`)
       .find({ title: article.title })
@@ -46,12 +47,14 @@ exports.insertOrUpdate = async (article) => {
           },
         })
         .write();
+      noticeLowPrice = true;
     }
   } else {
     //console.log(`Article not found on DB, writing`);
     db.defaults({ articles: [] }).write();
     db.get(`articles`).push(article).write();
   }
+  return noticeLowPrice;
 };
 
 exports.findAll = async () => {
