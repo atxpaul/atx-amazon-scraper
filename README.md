@@ -21,3 +21,9 @@ Then you can run
 ```sh
 scrap "https://amazon.es/yoururl"
 ```
+
+All articles you scrap will be stored. If you want to check if anyone has lower price than before, just use
+
+```sh
+scrap check
+```
