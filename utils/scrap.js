@@ -88,6 +88,7 @@ module.exports = async (url, show = true) => {
       console.log(`Title: ${title}`);
       console.log(`Price: ${price}`);
       console.log(`Availability: ${availability}`);
+      console.log(`URL: ${url}`);
     }
   } else {
     spinner.fail(`Fail`);
