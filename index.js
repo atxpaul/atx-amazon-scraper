@@ -56,7 +56,11 @@ const { clear, debug, minimal } = flags;
   }
 
   //Search for URL
-  await scrap(input[0]);
+  if (input[0]) {
+    await scrap(input[0]);
+  } else {
+    await scrap('');
+  }
 
   debug && log(flags, input);
 })();

@@ -5,6 +5,7 @@ const ora = require('ora');
 const storer = require('./storer');
 const domain = require('./domain');
 const priceTransformer = require('./priceTransformer');
+const questions = require('./questions');
 
 const spinner = ora({ text: '' });
 
@@ -14,6 +15,12 @@ module.exports = async (url, show = true) => {
   let availability;
   let priceFloat;
   let currency;
+
+  if (url == '') {
+    const vars = await questions();
+    url = vars.url;
+    console.log(`The input was ${url}`);
+  }
 
   if (show) {
     spinner.start(`Scraping`);
