@@ -57,9 +57,22 @@ exports.insertOrUpdate = async (article) => {
   return noticeLowPrice;
 };
 
-exports.findAll = async () => {
+exports.findAllUrls = async () => {
   const adapter = new FileSync(dbArticles);
   const db = low(adapter);
   const urls = db.get(`articles`).map(`url`).value();
   return urls;
+};
+
+exports.findAllTitles = async () => {
+  const adapter = new FileSync(dbArticles);
+  const db = low(adapter);
+  const urls = db.get(`articles`).map(`title`).value();
+  return urls;
+};
+
+exports.deleteArticle = async (title) => {
+  const adapter = new FileSync(dbArticles);
+  const db = low(adapter);
+  db.get(`articles`).remove({ title: title }).write();
 };

@@ -13,6 +13,7 @@ const cli = require('./utils/cli');
 const log = require('./utils/log');
 const scrap = require('./utils/scrap');
 const storer = require('./utils/storer');
+const select = require('./utils/select');
 const ora = require('ora');
 
 const spinner = ora({ text: '' });
@@ -28,7 +29,7 @@ const { clear, debug, minimal } = flags;
 
   //COMMAND: check -> Scrap all items, just scrap and show, not notice if any changes
   if (input.includes(`check`) || input.includes(`ls`)) {
-    const allUrl = await storer.findAll();
+    const allUrl = await storer.findAllUrls();
     if (allUrl.length > 0) {
       spinner.start(`Checking if there is any change`);
       for (i = 0; i < allUrl.length; i++) {
@@ -42,6 +43,15 @@ const { clear, debug, minimal } = flags;
         `You cannot check any articles if you don't search for any of them before`
       );
     }
+    process.exit(0);
+  }
+
+  //COMMAND: ToDo del
+  if (input.includes(`del`) || input.includes(`rm`)) {
+    const allUrl = await storer.findAllTitles();
+    const toDels = await select({ choices: allUrl, message: `Remove item` });
+    toDels.map((articleTitle) => storer.deleteArticle(articleTitle));
+    console.log(`${toDels.length} articles were removed`);
     process.exit(0);
   }
 
