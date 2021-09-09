@@ -1,7 +1,7 @@
 {
     "name": "atx-amazon-scraper",
     "description": "A simple cli for amazon web-scraping",
-    "version": "0.3.3",
+    "version": "0.3.4",
     "license": "MIT",
     "bin": {
         "cli-scraper": "index.js",
