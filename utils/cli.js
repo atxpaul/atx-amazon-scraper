@@ -35,6 +35,9 @@ const commands = {
   check: {
     desc: `Scrap all items storaged`,
   },
+  del: {
+    desc: `Select an item to remove`,
+  },
 };
 
 const helpText = meowHelp({
