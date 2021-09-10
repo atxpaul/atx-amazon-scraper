@@ -11,7 +11,7 @@
 const init = require('./utils/init');
 const cli = require('./utils/cli');
 const log = require('./utils/log');
-const scrap = require('./utils/scrap');
+const generate = require('./utils/generate');
 const storer = require('./utils/storer');
 const select = require('./utils/select');
 const ora = require('ora');
@@ -33,7 +33,7 @@ const { clear, debug, minimal } = flags;
     if (allUrl.length > 0) {
       spinner.start(`Checking if there is any change`);
       for (i = 0; i < allUrl.length; i++) {
-        await scrap(allUrl[i], false);
+        await generate(allUrl[i], false);
       }
       spinner.succeed(
         `Finished. If any article has changed price, it is shown above`
@@ -57,9 +57,9 @@ const { clear, debug, minimal } = flags;
 
   //Search for URL
   if (input[0]) {
-    await scrap(input[0]);
+    await generate(input[0]);
   } else {
-    await scrap('');
+    await generate('');
   }
 
   debug && log(flags, input);
