@@ -19,7 +19,7 @@ const ora = require('ora');
 const spinner = ora({ text: '' });
 const input = cli.input;
 const flags = cli.flags;
-const { clear, debug, minimal } = flags;
+const { clear, debug, minimal, always } = flags;
 
 //IIFE
 (async () => {
@@ -33,7 +33,7 @@ const { clear, debug, minimal } = flags;
     if (allUrl.length > 0) {
       spinner.start(`Checking if there is any change`);
       for (i = 0; i < allUrl.length; i++) {
-        await generate(allUrl[i], false);
+        await generate(allUrl[i], always);
       }
       spinner.succeed(
         `Finished. If any article has changed price, it is shown above`

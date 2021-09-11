@@ -1,4 +1,7 @@
 const ora = require('ora');
+const chalk = require('chalk');
+
+const green = chalk.green;
 
 const storer = require('./storer');
 const domain = require('./domain');
@@ -69,6 +72,8 @@ module.exports = async (url, show = true) => {
       console.log(`Price: ${price}`);
       console.log(`Availability: ${availability}`);
       console.log(`URL: ${url}`);
+      if (isLowestPrice)
+        console.log(`${green(`This article has lower its price! Check it!`)}`);
     }
   } else {
     spinner.fail(`Fail`);

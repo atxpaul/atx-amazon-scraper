@@ -8,6 +8,12 @@ const flags = {
     alias: `m`,
     desc: `Do NOT print the welcome header`,
   },
+  always: {
+    type: `boolean`,
+    default: false,
+    alias: `a`,
+    desc: `Always show results if you are checking, even if price is the same`,
+  },
   clear: {
     type: `boolean`,
     default: true,
