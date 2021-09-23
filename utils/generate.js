@@ -17,10 +17,12 @@ module.exports = async (url, show = true) => {
   let availability;
   let priceFloat;
   let currency;
+  let desiredPrice;
 
   if (url == '') {
     const vars = await questions();
     url = vars.url;
+    desiredPrice = vars.desiredPrice;
     console.log(`The input was ${url}`);
   }
 
@@ -49,6 +51,9 @@ module.exports = async (url, show = true) => {
     if (availability.indexOf(`\n`) > 1) {
       availability = availability.substr(0, availability.indexOf(`\n`));
     }
+    if (desiredPrice > priceFloat) {
+      show = true;
+    }
     const urlDomain = await domain.extractDomain(url);
     const event = new Date();
     const jsonDate = event.toJSON();
@@ -60,6 +65,7 @@ module.exports = async (url, show = true) => {
       date: jsonDate,
       domain: urlDomain,
       url: url,
+      desiredPrice: desiredPrice,
       minPrice: {
         minPriceDate: jsonDate,
         minPrice: priceFloat,
@@ -72,8 +78,16 @@ module.exports = async (url, show = true) => {
       console.log(`Price: ${price}`);
       console.log(`Availability: ${availability}`);
       console.log(`URL: ${url}`);
-      if (isLowestPrice)
+      if (isLowestPrice) {
         console.log(`${green(`This article has lower its price! Check it!`)}`);
+      }
+      if (desiredPrice > priceFloat) {
+        console.log(
+          `${green(
+            `Price of this article is lower than you would paid! Check it!`
+          )}`
+        );
+      }
     }
   } else {
     spinner.fail(`Fail`);
