@@ -1,6 +1,6 @@
 #`npx atx-amazon-scraper`
 
-This is a simple scraper for articles in amazon ES and amazon COM
+This is a scraper for articles in amazon ES and amazon COM
 
 ##Usage
 
@@ -26,4 +26,10 @@ All articles you scrap will be stored. If you want to check if anyone has lower 
 
 ```sh
 scrap check
+```
+
+If you want to check an article and the compare with the least you would paid for it, use the assitant just calling
+
+```sh
+scrap
 ```
