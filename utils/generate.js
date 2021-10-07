@@ -72,16 +72,16 @@ module.exports = async (url, show = true) => {
         minPriceCurrency: currency,
       },
     };
-    const isLowestPrice = await storer.insertOrUpdate(articleStatus);
-    if (isLowestPrice || show) {
+    const priceCheck = await storer.insertOrUpdate(articleStatus);
+    if (priceCheck.noticeLowPrice || priceCheck.noticeDesiredPrice || show) {
       console.log(`Title: ${title}`);
       console.log(`Price: ${price}`);
       console.log(`Availability: ${availability}`);
       console.log(`URL: ${url}`);
-      if (isLowestPrice) {
+      if (priceCheck.noticeLowPrice) {
         console.log(`${green(`This article has lower its price! Check it!`)}`);
       }
-      if (desiredPrice > priceFloat) {
+      if (desiredPrice > priceFloat || priceCheck.noticeDesiredPrice) {
         console.log(
           `${green(
             `Price of this article is lower than you would paid! Check it!`

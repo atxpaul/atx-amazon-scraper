@@ -9,6 +9,7 @@ const dbArticles = path.join(process.cwd(), `.articles/articles.json`);
 
 exports.insertOrUpdate = async (article) => {
   let noticeLowPrice = false;
+  let noticeDesiredPrice = false;
   if (!fs.existsSync(dbArticles)) {
     await makeDir(`.articles`);
     process.chdir(`.articles`);
@@ -49,12 +50,15 @@ exports.insertOrUpdate = async (article) => {
         .write();
       noticeLowPrice = true;
     }
+    if (article.price < parseInt(articleStored.desiredPrice)) {
+      noticeDesiredPrice = true;
+    }
   } else {
     //console.log(`Article not found on DB, writing`);
     db.defaults({ articles: [] }).write();
     db.get(`articles`).push(article).write();
   }
-  return noticeLowPrice;
+  return { noticeLowPrice, noticeDesiredPrice };
 };
 
 exports.findAllUrls = async () => {
