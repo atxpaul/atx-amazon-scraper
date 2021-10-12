@@ -31,7 +31,7 @@ const { clear, debug, minimal, always } = flags;
   if (input.includes(`check`) || input.includes(`ls`)) {
     const allUrl = await storer.findAllUrls();
     if (allUrl.length > 0) {
-      spinner.start(`Checking if there is any change`);
+      spinner.start(`Checking if there is any change\n`);
       for (i = 0; i < allUrl.length; i++) {
         await generate(allUrl[i], always);
       }
