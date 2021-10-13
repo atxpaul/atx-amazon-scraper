@@ -1,6 +1,6 @@
 #`npx atx-amazon-scraper`
 
-This is a scraper for articles in amazon ES and amazon COM
+This is a scraper for articles in amazon
 
 ##Usage
 
